@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<html>
+<head>
+    <title>Login - Mobile Shop Management</title>
+    <style>
+        /* Simple Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Body Styling - Full screen */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        /* Larger Login Container */
+        .login-container {
+            width: 100%;
+            max-width: 450px;
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        /* Login Box - Made Larger */
+        .login-box {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 50px 40px;
+            width: 100%;
+        }
+        
+        /* Larger Header */
+        .login-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .login-header h1 {
+            color: #2c3e50;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .login-header p {
+            color: #7f8c8d;
+            font-size: 16px;
+        }
+        
+        /* Larger Form Elements */
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            color: #34495e;
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            color: #333;
+            background-color: #f9f9f9;
+            height: 50px;
+        }
+        
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #3498db;
+            background-color: white;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.1);
+        }
+        
+        /* Larger Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            margin-top: 20px;
+            height: 55px;
+        }
+        
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Footer */
+        .form-footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #95a5a6;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        
+        /* Responsive */
+        @media (max-width: 480px) {
+            .login-box {
+                padding: 40px 30px;
+                min-height: auto;
+            }
+            
+            .login-header h1 {
+                font-size: 24px;
+            }
+        }
+        
+        /* Make inputs more visible */
+        input::placeholder {
+            color: #95a5a6;
+            font-size: 14px;
+        }
+        
+        /* Status messages */
+        .status-message {
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 14px;
+            display: none;
+        }
+        
+        .error {
+            background-color: #ffeaea;
+            color: #c62828;
+            border-left: 4px solid #c62828;
+        }
+        
+        .success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border-left: 4px solid #2e7d32;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <h1>Mobile Shop Management System</h1>
+                <p>Stock & Sales Management</p>
+            </div>
+            
+            <form action="loginurl" method="post">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required 
+                           placeholder="Enter your username">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="pass" required 
+                           placeholder="Enter your password">
+                </div>
+                
+                <input type="submit" value="Sign In" class="submit-btn">
+            </form>
+            
+            <div class="form-footer">
+                <p>Enter your credentials to access the system</p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <script>
+        // Simple form enhancement
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-focus username field
+            document.getElementById('username').focus();
+            
+            // Form submission feedback
+            const form = document.querySelector('form');
+            const submitBtn = form.querySelector('.submit-btn');
+            
+            form.addEventListener('submit', function(e) {
+                const username = document.getElementById('username').value.trim();
+                const password = document.getElementById('password').value.trim();
+                
+                // Basic validation
+                if (!username || !password) {
+                    e.preventDefault();
+                    alert('Please fill in both fields');
+                    return;
+                }
+                
+                // Visual feedback
+                submitBtn.value = 'Signing in...';
+                submitBtn.style.opacity = '0.8';
+                submitBtn.disabled = true;
+                
+                // In case form submission takes time, reset button after 5 seconds
+                setTimeout(function() {
+                    submitBtn.value = 'Sign In';
+                    submitBtn.style.opacity = '1';
+                    submitBtn.disabled = false;
+                }, 5000);
+            });
+            
+            // Add focus effects
+            const inputs = document.querySelectorAll('input[type="text"], input[type="password"]');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.style.borderColor = '#3498db';
+                    this.style.boxShadow = '0 0 0 3px rgba(52, 152, 219, 0.1)';
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.style.borderColor = '#ddd';
+                    this.style.boxShadow = 'none';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

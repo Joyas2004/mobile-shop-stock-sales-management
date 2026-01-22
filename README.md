@@ -15,5 +15,3 @@ A Java-based web application designed to manage mobile shop inventory, sales, an
 - Database: MySQL
 - Server: Apache Tomcat
 - IDE: NetBeans
-
-## Project Structure
